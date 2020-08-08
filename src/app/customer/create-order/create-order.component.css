@@ -1,0 +1,25 @@
+.details-image {
+    height:100px;width:100px;margin-top:10px;
+}
+
+.products-table th,
+.products-table td {
+  vertical-align: middle;
+}
+
+.products-table th:nth-child(2) {
+  width: 30%;
+}
+
+.products-table .input-group button {
+  border: 0;
+}
+
+.products-table .input-group input {
+  text-align: center;
+}
+
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+  margin-left: 0;
+}
+

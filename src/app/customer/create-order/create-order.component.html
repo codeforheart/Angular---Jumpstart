@@ -1,0 +1,56 @@
+<div>
+  <form (ngSubmit)="submit()" class="create-order-form" #createOrderForm="ngForm" create-order-form="novalidate">
+    <div class="form-group" *ngIf="customer">
+      <div>
+        Create Order for <b>{{ customer.firstName | capitalize}} {{ customer.lastName | capitalize}}</b>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Select Product</label>
+      <div class="products-container">
+        <table class="products-table table table-hover">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th></th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let product of staticProductsData; let i = index;trackBy:indexTracker">
+            <td>{{product.productName}}</td>
+            <td></td>
+            <td>
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button type="button" name="{{product.productName}}" [disabled]="quantityInput.value === '0'" (click)="handleProductAdd($event)" class="btn btn-default btn-number" data-type="minus" data-field="">
+                      <span class="glyphicon glyphicon-minus"></span>
+                  </button>
+                </span>
+                <input type="text" name="{{product.productName}}" [(ngModel)]="staticProductsData[i].quantity" (change)="updateSumOfOrders($event)" #quantityInput class="form-control input-number" value="0" min="0" max="10">
+                <span class="input-group-btn">
+                      <button type="button" name="{{product.productName}}" [disabled]="quantityInput.value === '10'" (mousedown)="handleProductAdd($event)" class="btn btn-default btn-number" data-type="plus" data-field="">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+              </div>
+            </td>
+            <td>{{product.itemCost}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="alert alert-danger" *ngIf="errorMessage != null"></div>
+      <div>
+        <div class="sm-col-6"><b>Amount of products: </b>{{sumOfOrders}}</div>
+        <div class="sm-col-6"><b>Amount to pay: </b>{{sumOfAmountToPay.toFixed(1)}}</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="pull-right">
+          <button type="submit" class="btn btn-success" [disabled]="sumOfOrders === 0">Buy</button>
+      </div>
+    </div>
+  </form>
+</div>
