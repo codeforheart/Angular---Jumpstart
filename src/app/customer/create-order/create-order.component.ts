@@ -96,20 +96,6 @@ export class CreateOrderComponent implements OnInit {
       }
     }
   }
-  async lazyLoadMapComponent() {
-    if (!this.mapsViewContainerRef.length) {
-      // Lazy load MapComponent
-      const { MapComponent } = await import('../../shared/map/map.component');
-      console.log('Lazy loaded map component!');
-      const component = this.componentFactoryResolver.resolveComponentFactory(MapComponent);
-      this.mapComponentRef = this.mapsViewContainerRef.createComponent(component);
-      this.mapComponentRef.instance.zoom = 10;
-      this.mapComponentRef.instance.customer = this.customer;
-      this.mapComponentRef.instance.enabled = true;
-    }
-  }
-
-
 
   submit() {
     this.createOrderForm.form.markAsPristine();
